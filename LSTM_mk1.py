@@ -35,7 +35,9 @@ for graph in x_set:
 print("y set:");
 print(y_set);
 
-x_train = x_set[0:(len(x_set)/2)]
+half = (len(x_set)/2);
+
+x_train = x_set[0::half]
 x_test = x_set[(len(x_set)/2):]
 
 y_train = x_set[0:(len(y_set)/2)]
@@ -61,6 +63,7 @@ except TypeError:
 model = tf.keras.models.Sequential([
   tf.keras.layers.LSTM(28),
   tf.keras.layers.Flatten(input_shape=(28, 28)),
+  tf.keras.layers.Dense(128, activation='relu'),
   tf.keras.layers.Dense(128, activation='relu'),
   tf.keras.layers.Dropout(0.2),
   tf.keras.layers.Dense(10)
