@@ -9,7 +9,7 @@ calcThread = calc.auto_connect();
 # test the integration function of the calculator
 calc.calculate("integrate(\"x+pi\",\"x\",0,1,0.001)");
 calcworking = calc.calculate("ans == 3.64");
-print(f"calculator functioning?: {calcworking}");
+print(f"\ncalculator functioning?: {calcworking}");
 
 
 
@@ -26,37 +26,32 @@ variables = [
     ["t"     , 10       ]  # time
 ]
 
-# load variables into dictionary
+# load variables into calculator
 for i in range(0,len(variables)):
     calc.calculate(f"/{variables[i][0]} = {variables[i][1]}");
 
 
+# integral calculator function
+# (  pi/t2  )/(2*pi)*(  pi/t2  )*(    ( 1 + (-1)^(n+1)*exp(i*w*t)*cos(w*p/2) )^2 )/w^2
+# https://www.integral-calculator.com/
 
 
+
+'''
 sw = "(  pi/ttwo  )"
 summation_function = "(  (_1)^n+1  )";
 fwt = f"(    ( 1 + (_1)^(n+1)*exp(i*w*t) + {summation_function}*exp(i*w*tk)*cos(w*tpi/2) )^2    )";
+xt = f"integrate(\"{sw}/(2*pi)*{sw}*{fwt}/w^2\",\"w\",0.001,100,0.1)";
+'''
 
-xt = f"integrate(\"{sw}/(2*pi)*{sw}*{fwt}/w^2\",\"w\",0,10000000000,0.1)";
 
-print("Solving:");
+xt = "integrate(\" (  pi/ttwo  )/(2*pi)*(  pi/ttwo  )*(    ( 1 + (_1)^(n+1)*exp(i*w*t)*cos(w*tpi/2) )^2 )/w^2\",\"w\",0.001,100000,0.001)";
+
+print("\nSolving:");
 print(xt);
-xt = str(xt);
-print(xt);
+print(" ")
+print("approximation: " + calc.calculate(xt));
 
 
-print("--------------------")
-
-print(calc.calculate("integrate(\" (  pi/ttwo  )/(2*pi)*(  pi/ttwo  )*(    ( 1 + (_1)^(n+1)*exp(i*w*t)*cos(w*tpi/2) )^2 )/w^2\",\"w\",0.001,1000000,0.001)"));
-
-print("--------------------")
-print(calc.calculate(
-    "integrate(\"((  pi/ttwo  )/(2*pi)*(  pi/ttwo  )*(    ( 1 + (_1)^(n+1)*exp(i*w*t) + (  (_1)^n+1  )*exp(i*w*tk)*cos(w*tpi/2) )^2    )/w^2\",\"w\",0,10,0.1)"
-));
-
-print("done");
-print(calc.calculate(xt));
-
-
-print("done");
+print("\n\ndone");
 calcThread.join();
