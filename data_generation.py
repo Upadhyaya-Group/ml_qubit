@@ -1,57 +1,51 @@
 
-from time import ctime
-import PythonCalculatorClient as calc
-
-
-calcThread = calc.auto_connect();
-
-
-# test the integration function of the calculator
-calc.calculate("integrate(\"x+pi\",\"x\",0,1,0.001)");
-calcworking = calc.calculate("ans == 3.64");
-print(f"\ncalculator functioning?: {calcworking}");
+from numpy import exp, pi, cos, abs
+from math import pow
+import scipy.integrate as integrate
+import matplotlib.pyplot as pyplot
 
 
 
-times = [1,100,1000,100000];
-
-
-# set variable values
-variables = [
-    ["p"     , 1        ], # stretched exponential
-    ["ttwo"  , times[0] ], # coherence lifetime
-    ["n"     , 10       ], # number of pi pulses
-    ["tk"    , 10       ], # time that pi pulses are applies
-    ["tpi"   , 10       ], # duration of pi pulses
-    ["t"     , 10       ]  # time
-]
-
-# load variables into calculator
-for i in range(0,len(variables)):
-    calc.calculate(f"/{variables[i][0]} = {variables[i][1]}");
-
-
-# integral calculator function
-# (  pi/t2  )/(2*pi)*(  pi/t2  )*(    ( 1 + (-1)^(n+1)*exp(i*w*t)*cos(w*p/2) )^2 )/w^2
-# https://www.integral-calculator.com/
 
 
 
-'''
-sw = "(  pi/ttwo  )"
-summation_function = "(  (_1)^n+1  )";
-fwt = f"(    ( 1 + (_1)^(n+1)*exp(i*w*t) + {summation_function}*exp(i*w*tk)*cos(w*tpi/2) )^2    )";
-xt = f"integrate(\"{sw}/(2*pi)*{sw}*{fwt}/w^2\",\"w\",0.001,100,0.1)";
-'''
 
 
-xt = "integrate(\" (  pi/ttwo  )/(2*pi)*(  pi/ttwo  )*(    ( 1 + (_1)^(n+1)*exp(i*w*t)*cos(w*tpi/2) )^2 )/w^2\",\"w\",0.001,100000,0.001)";
-
-print("\nSolving:");
-print(xt);
-print(" ")
-print("approximation: " + calc.calculate(xt));
 
 
-print("\n\ndone");
-calcThread.join();
+
+times = [1/1000000];
+ttwotimes = [100/1000];
+
+p = 1;
+
+tpi = 100/1000000000; # 100 ns
+
+fx_vals = [];
+
+def dx(w):
+    global fx_vals;
+
+    t = times[0];
+    ttwo = ttwotimes[0];
+    i = complex(0,1);
+
+    filter_function = pow( abs(  1 + exp(i*w*t) - 2 * exp(i*w*(t+tpi)/2 ) * cos(w*tpi/2)  )  , 2);
+
+    fx_vals.append(filter_function);
+
+    dxt = 1/2/pi * pow(pi / ttwo,p) * pow( 1/w , p+1) * filter_function;
+
+    return dxt;
+
+
+xvals = range(1,100000000);
+yvals = [];
+
+for i in xvals:
+    yvals.append(dx(i));
+
+
+pyplot.plot(xvals,fx_vals);
+pyplot.show();
+
