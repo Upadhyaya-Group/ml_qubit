@@ -39,7 +39,7 @@ def dx(w):
     return dxt;
 
 
-xvals = range(1,100000000);
+xvals = range(1,30000000);
 yvals = [];
 
 for i in xvals:
