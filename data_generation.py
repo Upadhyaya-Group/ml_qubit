@@ -15,7 +15,7 @@ import matplotlib.pyplot as pyplot
 
 
 times = [1/1000000];
-ttwotimes = [100/1000];
+ttwotimes = [3.28/10000];
 
 p = 1;
 
@@ -47,5 +47,6 @@ for i in xvals:
 
 
 pyplot.plot(xvals,fx_vals);
+pyplot.plot(xvals,yvals);
 pyplot.show();
 
