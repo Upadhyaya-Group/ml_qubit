@@ -8,7 +8,34 @@ import matplotlib.pyplot as pyplot
 
 
 
+def plot(fx,lowerBound=0, upperBound=1000, step=1, args=[]):
 
+    i = lowerBound;
+
+    xvals = [];
+    yvals = [];
+
+    Y = 0;
+
+    while(i < upperBound):
+        xvals.append(i);
+        if (len(args) > 0):
+            if (len(args) == 1): 
+                    y = fx(i*step,args[0]); 
+
+                    yvals.append(y);           
+            else:
+                    y = fx(i*step,args);
+                    yvals.append(y); 
+                    
+        else:
+            y = fx(i*step);
+            yvals.append(y); 
+
+        i += step;
+
+    pyplot.plot(xvals,yvals);
+    pyplot.show();
 
 
 
@@ -21,12 +48,17 @@ p = 1;
 
 tpi = 100/1000000000; # 100 ns
 
+# for plotting filter function
 fx_vals = [];
 
-def dx(w):
+def x(t):
+    return integrate.quad(dx,0,30000,args=(t));
+
+
+def dx(w,t):
     global fx_vals;
 
-    t = times[0];
+   # t = times[0];
     ttwo = ttwotimes[0];
     i = complex(0,1);
 
@@ -39,13 +71,8 @@ def dx(w):
     return dxt;
 
 
-xvals = range(1,30000000);
-yvals = [];
-
-for i in xvals:
-    yvals.append(dx(i));
+plot(dx,1,300000,100,args=[times[0]]);
+plot(x,0,1000,0.5);
 
 
-pyplot.plot(xvals,fx_vals);
-pyplot.show();
 
