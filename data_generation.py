@@ -42,7 +42,7 @@ def plot(fx,lowerBound=0, upperBound=1000, step=1, args=[]):
 
 
 times = [1/1000000];
-ttwotimes = [100/1000];
+ttwotimes = [3.28/10000];
 
 p = 1;
 
@@ -73,6 +73,5 @@ def dx(w,t):
 
 plot(dx,1,300000,100,args=[times[0]]);
 plot(x,0,1000,0.5);
-
 
 
