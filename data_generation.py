@@ -1,6 +1,6 @@
 
 from numpy import exp, pi, cos, abs
-from math import pow
+from math import inf, pow
 import scipy.integrate as integrate
 import matplotlib.pyplot as pyplot
 
@@ -41,34 +41,38 @@ def plot(fx,lowerBound=0, upperBound=1000, step=1, args=[]):
 
 
 
-times = [1/1000000];
+times = [1E-6];
 ttwotimes = [3.28/10000];
 
-p = 1;
+p = 1; 
 
-tpi = 100/1000000000; # 100 ns
+tpi = 100E-9; # 100 ns
+
 
 # for plotting filter function
 fx_vals = [];
-
-def x(t):
-    return integrate.quad(dx,0,30000,args=(t));
 
 
 def dx(w,t):
     global fx_vals;
 
-   # t = times[0];
     ttwo = ttwotimes[0];
-    i = complex(0,1);
 
-    filter_function = pow( abs(  1 + exp(i*w*t) - 2 * exp(i*w*(t+tpi)/2 ) * cos(w*tpi/2)  )  , 2);
 
-    fx_vals.append(filter_function);
+    filter_function = pow( abs(  1 + exp(1j*w*t) - 2 * exp(1j*w*(t+tpi)/2 ) * cos(w*tpi/2)  )  , 2);
+
 
     dxt = 1/2/pi * pow(pi / ttwo,p) * pow( 1/w , p+1) * filter_function;
 
     return dxt;
+
+
+def x(t):
+    return integrate.quad(dx,0,inf,args=(t))[0];
+
+
+def c(t):
+    return exp(-x(t));
 
 
 plot(dx,1,300000,100,args=[times[0]]);
