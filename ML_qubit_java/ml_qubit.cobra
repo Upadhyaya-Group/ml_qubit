@@ -1,0 +1,9 @@
+/eq = "( abs(  1 + exp(i*w*t) - 2 * exp(i*w*(t+tpi)/2 ) * cos(w*tpi/2)  ) )*( abs(  1 + exp(i*w*t) - 2 * exp(i*w*(t+tpi)/2 ) * cos(w*tpi/2)  ) )"
+
+/tpi = 100E_9;
+/w = 100;
+/t = 1E_6;
+
+graph(eq,"w",1,100000000,1E_2);
+
+#graph('integrate(eq,"w",0,3000,0.1)',"t");
