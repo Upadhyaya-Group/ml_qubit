@@ -10,7 +10,7 @@ calc.calculate("integrate(\"x+pi\",\"x\",0,1,0.001)");
 calcworking = calc.calculate("ans == 3.64");
 print(f"\ncalculator functioning?: {calcworking}");
 
-
+p = 1;
 
 # set variable values
 variables = [
