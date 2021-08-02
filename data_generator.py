@@ -28,7 +28,7 @@ def x_quad(t):
     return integrate.quad(dx,0,math.inf,args=(t))[0];
 
 def x_trapz(t):
-    w = np.linspace(0.00001,3000,10000);
+    w = np.linspace(0.00001,1e7,10000);
     dx_vals = dx(w,t);
     return integrate.trapz(dx_vals, w);
 

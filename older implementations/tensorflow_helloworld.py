@@ -25,7 +25,6 @@ model = tf.keras.models.Sequential([
   tf.keras.layers.Dense(10)
 ])
 
-
 # get the predictions for the second datapoint
 predictions = model(x_train[:1]).numpy()
 

@@ -6,7 +6,6 @@ from tensorflow import keras
 from tensorflow.python.keras.layers.recurrent_v2 import LSTM
 
 
-
 #say hello to confirm working import and printing
 print("hello world!");
 
@@ -35,17 +34,17 @@ for graph in x_set:
 print("y set:");
 print(y_set);
 
-half = (len(x_set)/2);
+half = int(len(x_set)/2);
 
-x_train = x_set[0::half]
-x_test = x_set[(len(x_set)/2):]
+x_train = x_set[0:half]
+x_test = x_set[half:]
 
-y_train = x_set[0:(len(y_set)/2)]
-y_test = x_set[len(y_set)/2:]
+y_train = x_set[0:half]
+y_test = x_set[half:]
 
 #convert the samples from integer values (0 to 255) into floating points (0.0 to 1.0)
 #(x_train, y_train), (x_test, y_test) = mnist.load_data()
-x_train, x_test = x_train / 255.0, x_test / 255.0
+#x_train, x_test = x_train / 255.0, x_test / 255.0
 
 
 print("number of x data points:");
