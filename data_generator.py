@@ -11,7 +11,7 @@ def artificial_c(t):
     return math.e**((-t/ttwo)**p);
 
 def s(t): 
-    return -math.pi*np.log(artificial_c(t))/t, math.pi/t;
+    return -math.pi*np.log(artificial_c(t))/t;
 
 def filter_function(w,t, tpi=100e-9):
     t1 = (t + tpi)/2; 
@@ -21,7 +21,7 @@ def filter_function(w,t, tpi=100e-9):
 # dx is the dx/dw
 def dx(w, t):
     filter_function_vals = filter_function(w,t);
-    return 0.5*math.pi * s(t)[0] * filter_function_vals/ w**(2);
+    return 0.5*math.pi * s(t) * filter_function_vals/ w**(2);
 
 
 def x_quad(t):
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     axis[0,0].plot(t_range,c_t_vals);
     
     axis[0,1].set_title("s(w, p=1)");
-    axis[0,1].plot(s_w_vals[1],s_w_vals[0]);
+    axis[0,1].plot(math.pi/t_range,s_w_vals);
 
 
     # second graph set
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     axis[1,0].plot(t_range,c_t_vals);
     
     axis[1,1].set_title("s(w, p=2)");
-    axis[1,1].plot(s_w_vals[1],s_w_vals[0]);
+    axis[1,1].plot(math.pi/t_range,s_w_vals);
 
 
 
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     axis[2,0].plot(t_range,c_t_vals);
     
     axis[2,1].set_title("s(w, p=3)");
-    axis[2,1].plot(s_w_vals[1],s_w_vals[0]);
+    axis[2,1].plot(math.pi/t_range,s_w_vals);
 
 
     pyplot.show();
