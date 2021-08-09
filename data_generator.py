@@ -28,7 +28,7 @@ def x_quad(t):
     return integrate.quad(dx,0,math.inf,args=(t))[0];
 
 def x_trapz(t):
-    w = np.linspace(0.00001,1e7,10000);
+    w = np.linspace(0.00001,1e7,1000);
     dx_vals = dx(w,t);
     return integrate.trapz(dx_vals, w);
 
@@ -46,12 +46,12 @@ def get_graphset(set_p=p,set_ttwo=ttwo):
     global p,ttwo;
     p = set_p;
     ttwo = set_ttwo;
-    t_range = linspace(1e-6,5e-6,5000);
+    t_range = np.logspace(1e-6,5e-6,500);
     return c(t_range), s(t_range);
 
 
 if __name__ == "__main__":
-    t_range = linspace(1e-6,5e-6,5000);
+    t_range = np.logspace(1e-6,5e-6,500);
     c_t_vals = c(t_range);
     s_w_vals = s(t_range);
 
