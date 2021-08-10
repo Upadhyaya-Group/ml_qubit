@@ -8,7 +8,7 @@ ttwo = 343.43e-6;
 p = 1;
 
 def artificial_c(t): 
-    return math.e**((-t/ttwo)**p);
+    return math.e**(-(t/ttwo)**p);
 
 def s(t): 
     return -math.pi*np.log(artificial_c(t))/t;
@@ -42,16 +42,22 @@ def c(t):
     return np.exp(-x(t));
 
 
+
 def get_graphset(set_p=p,set_ttwo=ttwo):
     global p,ttwo;
     p = set_p;
     ttwo = set_ttwo;
-    t_range = np.logspace(1e-6,5e-6,500);
+    t_range = np.linspace(1e-6,100e-6,500);
     return c(t_range), s(t_range);
 
 
+
+
 if __name__ == "__main__":
-    t_range = np.logspace(1e-6,5e-6,500);
+
+    ttwo = 1e-4;
+
+    t_range = np.linspace(1e-6,100e-6,500);
     c_t_vals = c(t_range);
     s_w_vals = s(t_range);
 

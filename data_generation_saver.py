@@ -7,8 +7,8 @@ x_set = [];
 y_set = [];
 
 ttwonaught = 343e-6;
-for i in range(0,100):
-    graphset = data_generator.get_graphset(1,(ttwonaught) * i**2 * 0.5);
+for i in range(1,100):
+    graphset = data_generator.get_graphset(2,(ttwonaught) * i**2 * 0.5);
     x_set.append(graphset[0]);
     y_set.append(graphset[1]);
 
