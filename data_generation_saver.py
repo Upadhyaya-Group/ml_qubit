@@ -8,7 +8,7 @@ y_set = [];
 
 #ttwonaught = 343e-6;
 for ttwo in np.linspace(120e-6,600e-6,302):
-    graphset = data_generator.get_graphset(1,ttwo);
+    graphset = data_generator.get_graphset(3,ttwo);
     x_set.append(graphset[0]);
     y_set.append(graphset[1]);
 

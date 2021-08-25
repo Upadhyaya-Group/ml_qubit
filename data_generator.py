@@ -55,7 +55,7 @@ def get_graphset(set_p=p,set_ttwo=ttwo):
 
 if __name__ == "__main__":
 
-    ttwo = 1e-4;
+    
 
     t_range = np.linspace(1e-6,100e-6,500);
     c_t_vals = c(t_range);
@@ -77,8 +77,12 @@ if __name__ == "__main__":
     # second graph set
     p = 2;
 
-    c_t_vals = c(t_range);
-    s_w_vals = s(t_range);
+  #  c_t_vals = c(t_range);
+   # s_w_vals = s(t_range);
+
+    graphset = get_graphset(2);
+    c_t_vals = graphset[0];
+    s_w_vals = graphset[1];
     
     axis[1,0].set_title("c(t, p=2)");
     axis[1,0].plot(t_range,c_t_vals);
