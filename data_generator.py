@@ -4,11 +4,14 @@ from numpy.core.function_base import linspace
 from scipy import integrate
 from matplotlib import pyplot
 
+
+linspace = True;
+
 ttwo = 343.43e-6;
 p = 1;
 
 def artificial_c(t): 
-    return math.e**(-(t/ttwo)**p);
+    return math.e**(-((1.0*t)/ttwo)**(1.0*p));
 
 def s(t): 
     return -math.pi*np.log(artificial_c(t))/t;
@@ -28,7 +31,11 @@ def x_quad(t):
     return integrate.quad(dx,0,math.inf,args=(t))[0];
 
 def x_trapz(t):
-    w = np.linspace(0.00001,1e7,1000);
+    global linspace;
+    if linspace:
+        w = np.linspace(0.00001,1e7,1000);
+    else:
+        w = np.logspace(-4,7,1000);
     dx_vals = dx(w,t);
     return integrate.trapz(dx_vals, w);
 
@@ -47,8 +54,16 @@ def get_graphset(set_p=p,set_ttwo=ttwo):
     global p,ttwo;
     p = set_p;
     ttwo = set_ttwo;
-    t_range = np.linspace(1e-6,100e-6,500);
+
+    global linspace;
+    if linspace:
+        t_range = np.linspace(1e-6,1e-4,500);
+    else:
+        t_range = np.logspace(-6,-4,500);
+    
+
     return c(t_range), s(t_range);
+
 
 
 
@@ -85,11 +100,12 @@ if __name__ == "__main__":
     s_w_vals = graphset[1];
     
     axis[1,0].set_title("c(t, p=2)");
-    axis[1,0].plot(t_range,c_t_vals);
+    axis[1,0].plot(t_range,c_t_vals,'*');
+    axis[1,1].plot(math.pi/t_range,s_w_vals,'*');
     
+
     axis[1,1].set_title("s(w, p=2)");
     axis[1,1].plot(math.pi/t_range,s_w_vals);
-
 
 
     # third graph set
